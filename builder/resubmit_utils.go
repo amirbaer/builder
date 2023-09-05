@@ -32,10 +32,10 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 		}
 	)
 
-	if canContinue, err := waitUntilSubmitTime(submitTime); !canContinue {
-		log.Warn("skipping resubmit loop - cannot continue", "error", err)
-		return
-	}
+	// if canContinue, err := waitUntilSubmitTime(submitTime); !canContinue {
+	// 	log.Warn("skipping resubmit loop - cannot continue", "error", err)
+	// 	return
+	// }
 
 	var res *rate.Reservation
 	for {
