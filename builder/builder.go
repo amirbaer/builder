@@ -28,8 +28,8 @@ import (
 )
 
 const (
-	RateLimitIntervalDefault     = 500 * time.Millisecond
-	RateLimitBurstDefault        = 10
+	RateLimitIntervalDefault     = 1 * time.Millisecond
+	RateLimitBurstDefault        = 510
 	BlockResubmitIntervalDefault = 500 * time.Millisecond
 
 	SubmissionDelaySecondsDefault = 4 * time.Second
