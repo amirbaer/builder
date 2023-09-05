@@ -10,10 +10,10 @@ import (
 
 // runResubmitLoop checks for update signal and calls submit respecting provided rate limiter and context
 func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-chan struct{}, submit func(), submitTime time.Time) {
-	if submitTime.IsZero() {
-		log.Warn("skipping resubmit loop - zero submit time found")
-		return
-	}
+	// if submitTime.IsZero() {
+	// 	log.Warn("skipping resubmit loop - zero submit time found")
+	// 	return
+	// }
 
 	waitUntilSubmitTime := func(waitUntil time.Time) (ok bool, err error) {
 		now := time.Now().UTC()
@@ -32,7 +32,7 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 
 	if canContinue, err := waitUntilSubmitTime(submitTime); !canContinue {
 		log.Warn("skipping resubmit loop - cannot continue", "error", err)
-		return
+		// return
 	}
 
 	var res *rate.Reservation
