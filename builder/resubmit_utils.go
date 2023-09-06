@@ -15,29 +15,29 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 	// 	return
 	// }
 
-	var (
-		waitUntilSubmitTime = func(waitUntil time.Time) (ok bool, err error) {
-			now := time.Now().UTC()
-			if waitUntil.UTC().Before(now) {
-				waitUntil = now
-			}
-			sleepTime := waitUntil.UTC().Sub(now.UTC())
-			select {
-			case <-ctx.Done():
-				ok = false
-			case <-time.After(sleepTime):
-				ok = true
-			}
-			return ok && ctx.Err() == nil, ctx.Err()
-		}
-	)
+	// var (
+	// 	waitUntilSubmitTime = func(waitUntil time.Time) (ok bool, err error) {
+	// 		now := time.Now().UTC()
+	// 		if waitUntil.UTC().Before(now) {
+	// 			waitUntil = now
+	// 		}
+	// 		sleepTime := waitUntil.UTC().Sub(now.UTC())
+	// 		select {
+	// 		case <-ctx.Done():
+	// 			ok = false
+	// 		case <-time.After(sleepTime):
+	// 			ok = true
+	// 		}
+	// 		return ok && ctx.Err() == nil, ctx.Err()
+	// 	}
+	// )
 
-	if canContinue, err := waitUntilSubmitTime(submitTime); !canContinue {
-		log.Warn("skipping resubmit loop - cannot continue", "error", err)
-		// 	return
-	}
+	// if canContinue, err := waitUntilSubmitTime(submitTime); !canContinue {
+	// 	log.Warn("skipping resubmit loop - cannot continue", "error", err)
+	// 	// 	return
+	// }
 
-	var res *rate.Reservation
+	//var res *rate.Reservation
 	for {
 		select {
 		case <-ctx.Done():
@@ -46,7 +46,7 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 			// runBuildingJob is example caller that uses updateSignal channel via block hook that sends signal to
 			// represent submissions that increase block profit
 
-			res = limiter.Reserve()
+			res := limiter.Reserve()
 			if !res.OK() {
 				log.Warn("resubmit loop failed to make limiter reservation")
 				return
