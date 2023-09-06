@@ -103,6 +103,7 @@ func NewBuilder(args BuilderArgs) *Builder {
 	pk.FromSlice(pkBytes)
 
 	if args.limiter == nil {
+		log.Info("Limiter setup 2", "rate limit duration", RateLimitIntervalDefault, "rate limit burst", RateLimitBurstDefault)
 		args.limiter = rate.NewLimiter(rate.Every(RateLimitIntervalDefault), RateLimitBurstDefault)
 	}
 
