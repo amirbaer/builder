@@ -111,6 +111,7 @@ func NewBuilder(args BuilderArgs) *Builder {
 	}
 
 	slotCtx, slotCtxCancel := context.WithCancel(context.Background())
+	log.Info("Starting builder with the following limiting parameters", "resubmit interval", args.builderBlockResubmitInterval, "rate limit duration", args.limiter.Limit(), "rate limit burst", args.limiter.Burst())
 	return &Builder{
 		ds:                          args.ds,
 		relay:                       args.relay,
