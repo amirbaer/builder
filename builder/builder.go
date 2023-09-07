@@ -416,11 +416,12 @@ func (b *Builder) runBuildingJob(slotCtx context.Context, proposerPubkey boostTy
 
 	// Avoid submitting early into a given slot. For example if slots have 12 second interval, submissions should
 	// not begin until 8 seconds into the slot.
-	slotTime := time.Unix(int64(attrs.Timestamp), 0).UTC()
-	slotSubmitStartTime := slotTime.Add(-SubmissionDelaySecondsDefault)
+	// slotTime := time.Unix(int64(attrs.Timestamp), 0).UTC()
+	// slotSubmitStartTime := slotTime.Add(-SubmissionDelaySecondsDefault)
 
 	// Empties queue, submits the best block for current job with rate limit (global for all jobs)
-	go runResubmitLoop(ctx, b.limiter, queueSignal, submitBestBlock, slotSubmitStartTime)
+	//go runResubmitLoop(ctx, b.limiter, queueSignal, submitBestBlock, slotSubmitStartTime)
+	go runResubmitLoop(ctx, b.limiter, queueSignal, submitBestBlock)
 
 	// Populates queue with submissions that increase block profit
 	blockHook := func(block *types.Block, blockValue *big.Int, ordersCloseTime time.Time,
