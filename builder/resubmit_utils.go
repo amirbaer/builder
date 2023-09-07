@@ -37,7 +37,7 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 	// 	// 	return
 	// }
 
-	//var res *rate.Reservation
+	var res *rate.Reservation
 	for {
 		select {
 		case <-ctx.Done():
@@ -46,7 +46,7 @@ func runResubmitLoop(ctx context.Context, limiter *rate.Limiter, updateSignal <-
 			// runBuildingJob is example caller that uses updateSignal channel via block hook that sends signal to
 			// represent submissions that increase block profit
 
-			res := limiter.Reserve()
+			res = limiter.Reserve()
 			if !res.OK() {
 				log.Warn("resubmit loop failed to make limiter reservation")
 				return
