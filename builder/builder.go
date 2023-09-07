@@ -114,7 +114,7 @@ func NewBuilder(args BuilderArgs) (*Builder, error) {
 	}
 
 	if args.limiter == nil {
-		log.Info("NewBuilder // updating limiter params", "resubmit interval", args.builderBlockResubmitInterval, "rate limit duration", args.limiter.Limit(), "rate limit burst", args.limiter.Burst())
+		log.Info("Limiter setup 2", "rate limit duration", RateLimitIntervalDefault, "rate limit burst", RateLimitBurstDefault)
 		args.limiter = rate.NewLimiter(rate.Every(RateLimitIntervalDefault), RateLimitBurstDefault)
 	}
 

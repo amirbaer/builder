@@ -225,6 +225,7 @@ func Register(stack *node.Node, backend *eth.Ethereum, cfg *Config) error {
 	}
 
 	// BuilderRateLimitMaxBurst is set to builder.RateLimitBurstDefault by default if not specified
+	log.Info("Limiter setup 1", "rate limit duration", duration, "rate limit burst", cfg.BuilderRateLimitMaxBurst)
 	limiter := rate.NewLimiter(rate.Every(duration), cfg.BuilderRateLimitMaxBurst)
 
 	var builderRateLimitInterval time.Duration
